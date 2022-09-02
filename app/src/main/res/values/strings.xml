@@ -3,4 +3,6 @@
     <string name="text_species_characterDetail_fragment">Species:</string>
     <string name="text_status_characterDetail_fragment">Status:</string>
     <string name="text_gender_characterDetail_fragment">Gender:</string>
+    <string name="textMenu_ordenar_a_z">Ordenar: A - Z</string>
+    <string name="textMenu_ordenar_z_a">Ordenar: Z - A</string>
 </resources>
