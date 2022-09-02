@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_characterDetail"
+    android:background="@color/white">
+
+
+    <ImageView
+        android:id="@+id/imageView_characterDetail_fragment"
+        android:layout_width="@dimen/size_imageView_characterDetail"
+        android:layout_height="@dimen/size_imageView_characterDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_marginVertical="@dimen/marginVertical_imageView_characterDetail"
+        />
+
+    <TextView
+        android:id="@+id/nameCharacter_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Morty Smith"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_characterDetail_fragment"
+        app:layout_constraintStart_toStartOf="@+id/imageView_characterDetail_fragment"
+        app:layout_constraintEnd_toEndOf="@id/imageView_characterDetail_fragment"
+        android:layout_marginVertical="@dimen/marginVertical_nameCharacter_characterDetail"
+        />
+
+    <TextView
+        android:id="@+id/textSpecies_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameCharacter_characterDetail_fragment"
+        android:text="@string/text_species_characterDetail_fragment"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/marginFirstVerticalElement_textCharacterDetail_fragment"
+        android:layout_marginStart="@dimen/marginStartEnd_characterdetail_fragment"/>
+
+    <TextView
+        android:id="@+id/textRace_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameCharacter_characterDetail_fragment"
+        tools:text="Human"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/marginFirstVerticalElement_textCharacterDetail_fragment"
+        android:layout_marginEnd="@dimen/marginStartEnd_characterdetail_fragment"
+        />
+
+    <TextView
+        android:id="@+id/textStatus_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textSpecies_characterDetail_fragment"
+        android:text="@string/text_status_characterDetail_fragment"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/marginVertical_inDetails_characterDetailFragment"
+        android:layout_marginStart="@dimen/marginStartEnd_characterdetail_fragment"/>
+
+    <TextView
+        android:id="@+id/textAliveDeath_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textRace_characterDetail_fragment"
+        tools:text="Alive"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/marginVertical_inDetails_characterDetailFragment"
+        android:layout_marginEnd="@dimen/marginStartEnd_characterdetail_fragment"
+        />
+
+    <TextView
+        android:id="@+id/textGender_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textStatus_characterDetail_fragment"
+        android:text="@string/text_gender_characterDetail_fragment"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/marginVertical_inDetails_characterDetailFragment"
+        android:layout_marginStart="@dimen/marginStartEnd_characterdetail_fragment"/>
+
+    <TextView
+        android:id="@+id/textMaleFemale_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textAliveDeath_characterDetail_fragment"
+        tools:text="Male"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/marginVertical_inDetails_characterDetailFragment"
+        android:layout_marginEnd="@dimen/marginStartEnd_characterdetail_fragment"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

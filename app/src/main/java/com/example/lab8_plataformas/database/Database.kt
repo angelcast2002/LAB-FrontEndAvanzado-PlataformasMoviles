@@ -1,4 +1,6 @@
-package Database
+package com.example.lab8_plataformas.database
+
+import java.io.Serializable
 
 data class Character(
     val name: String,
@@ -6,7 +8,7 @@ data class Character(
     val status: String,
     val gender: String,
     val image: String
-)
+):Serializable
 
 object RickAndMortyDB {
 
