@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/placeListFragment"
         android:name="com.example.lab8_plataformas.fragments.PlaceListFragment"
-        android:label="fragment_place_list"
-        tools:layout="@layout/fragment_place_list" >
+        android:label="@string/text_Characters_materialToolbar"
+        tools:layout="@layout/fragment_place_list">
         <action
             android:id="@+id/action_placeListFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/placeDetailsFragment"
         android:name="com.example.lab8_plataformas.fragments.CharacterDetail"
-        android:label="PlaceDetailsFragment"
+        android:label="@string/text_characterDetail_materialToolbar"
         tools:layout="@layout/character_detail">
         <argument
             android:name="characterInfo"

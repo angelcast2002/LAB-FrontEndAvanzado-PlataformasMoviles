@@ -7,7 +7,7 @@
     tools:context=".activities.MainActivity"
     android:background="@color/white">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_ToolbarActivity"
         android:layout_width="@dimen/ceroDp"
         android:layout_height="wrap_content"
@@ -17,6 +17,8 @@
         app:layout_constraintTop_toTopOf="parent"
         style="@style/Widget.MaterialComponents.Toolbar.Surface"
         android:backgroundTint="@color/color_toolbarActivity"
+        app:title="@string/text_Characters_materialToolbar"
+        app:titleTextColor="@color/white"
         />
 
     <androidx.fragment.app.FragmentContainerView
