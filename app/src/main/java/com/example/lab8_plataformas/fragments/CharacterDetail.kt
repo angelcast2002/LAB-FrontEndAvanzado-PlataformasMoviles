@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
+import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
 import com.example.lab8_plataformas.R
 
@@ -36,8 +37,10 @@ class CharacterDetail : Fragment(R.layout.character_detail){
     private fun setImage() {
         characterImage.load(args.characterInfo.image) {
             transformations(CircleCropTransformation())
-            //error(R.drawable.ic_error)
-            //placeholder(R.drawable.ic_downloading)
+            diskCachePolicy(CachePolicy.ENABLED)
+            memoryCachePolicy(CachePolicy.ENABLED)
+            error(R.drawable.ic_error)
+            placeholder(R.drawable.ic_download)
         }
     }
 

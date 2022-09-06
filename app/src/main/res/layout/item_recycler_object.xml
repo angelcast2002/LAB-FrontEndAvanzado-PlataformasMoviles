@@ -30,6 +30,7 @@
         app:layout_constraintBottom_toTopOf="@id/textView_recycleViewPlace_raceStatus"
         android:textColor="@color/black"
         android:textStyle="bold"
+        android:textSize="@dimen/textSize_large"
         />
 
     <TextView

@@ -19,4 +19,31 @@
         tools:listitem="@layout/item_recycler_object"
         />
 
+    <Button
+        android:id="@+id/bt_sortAZ"
+        android:text="@string/textButton_sortAZ"
+        android:layout_margin="@dimen/margin_small"
+        android:layout_width="@dimen/ceroDp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_sortZA"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/color_toolbarActivity"
+        />
+
+    <Button
+        android:id="@+id/bt_sortZA"
+        android:text="@string/textButton_sortZA"
+        android:layout_margin="@dimen/margin_small"
+        android:layout_width="@dimen/ceroDp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bt_sortAZ"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/color_toolbarActivity"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

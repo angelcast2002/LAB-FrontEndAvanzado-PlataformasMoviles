@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
@@ -34,7 +35,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setNavigation() {
-        topAppBar.visibility = View.VISIBLE
+
+        navController.addOnDestinationChangedListener{_, destinacion,_ ->
+            when(destinacion.id){
+                R.id.placeListFragment -> {
+                    topAppBar.visibility = View.VISIBLE
+                    topAppBar.menu.findItem(R.id.menu_item_AZ).isVisible = true
+                    topAppBar.menu.findItem(R.id.menu_item_ZA).isVisible = true
+                }
+
+                R.id.placeDetailsFragment -> {
+                    topAppBar.menu.findItem(R.id.menu_item_AZ).isVisible = false
+                    topAppBar.menu.findItem(R.id.menu_item_ZA).isVisible = false
+                }
+            }
+        }
 
     }
 
@@ -42,14 +57,16 @@ class MainActivity : AppCompatActivity() {
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_item_AZ -> {
-                    Toast.makeText(this,"Funciona", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,getString(R.string.textMensaje_topAppBar), Toast.LENGTH_LONG).show()
+                    //placesList = placesList.sortedBy { it.name } as MutableList<Character>
                     true
                 }
 
                 R.id.menu_item_ZA -> {
-                    Toast.makeText(this,"Funciona", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,getString(R.string.textMensaje_topAppBar), Toast.LENGTH_LONG).show()
                     true
                 }
+
 
                 else -> false
             }

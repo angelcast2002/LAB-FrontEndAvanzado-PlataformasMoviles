@@ -6,5 +6,8 @@
     <string name="textMenu_ordenar_a_z">Ordenar: A - Z</string>
     <string name="textMenu_ordenar_z_a">Ordenar: Z - A</string>
     <string name="text_Characters_materialToolbar">Characters</string>
-    <string name="text_characterDetail_materialToolbar">Character Detail</string>
+    <string name="text_characterDetail_materialToolbar">Characters details</string>
+    <string name="textMensaje_topAppBar">Funcion no disponible, utilice el otro boton</string>
+    <string name="textButton_sortAZ"><![CDATA[A -> Z]]></string>
+    <string name="textButton_sortZA"><![CDATA[Z -> A]]></string>
 </resources>
