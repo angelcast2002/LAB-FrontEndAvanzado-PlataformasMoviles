@@ -30,6 +30,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView_characterDetail_fragment"
         app:layout_constraintEnd_toEndOf="@id/imageView_characterDetail_fragment"
         android:layout_marginVertical="@dimen/marginVertical_nameCharacter_characterDetail"
+        android:textSize="@dimen/textSize_extraLarge"
         />
 
     <TextView

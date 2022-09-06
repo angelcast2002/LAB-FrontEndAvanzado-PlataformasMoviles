@@ -5,10 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
 import com.example.lab8_plataformas.R
 import com.example.lab8_plataformas.database.Character
@@ -40,8 +45,10 @@ class PlaceAdapter(
 
             imageType.load(place.image) {
                 transformations(CircleCropTransformation())
-                //error(R.drawable.ic_error)
-                //placeholder(R.drawable.ic_downloading)
+                diskCachePolicy(CachePolicy.DISABLED)
+                memoryCachePolicy(CachePolicy.DISABLED)
+                error(R.drawable.ic_error)
+                placeholder(R.drawable.ic_download)
             }
             setListeners()
         }
