@@ -1,6 +1,6 @@
 package com.example.lab8_plataformas.datasource.model
 
-data class OriginX(
+data class OriginOneCharacter(
     val name: String,
     val url: String
 )

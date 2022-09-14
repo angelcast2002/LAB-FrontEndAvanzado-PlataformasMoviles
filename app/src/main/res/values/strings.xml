@@ -10,4 +10,6 @@
     <string name="textMensaje_topAppBar">Funcion no disponible, utilice el otro boton</string>
     <string name="textButton_sortAZ"><![CDATA[A -> Z]]></string>
     <string name="textButton_sortZA"><![CDATA[Z -> A]]></string>
+    <string name="textOrigin_characterDetail">Origin:</string>
+    <string name="text_episodeAppearances">Episode appearances:</string>
 </resources>

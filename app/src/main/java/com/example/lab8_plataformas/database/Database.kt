@@ -1,6 +1,6 @@
 package com.example.lab8_plataformas.database
 
-/*import java.io.Serializable
+import java.io.Serializable
 
 data class Character(
     val name: String,
@@ -87,4 +87,4 @@ object RickAndMortyDB {
 
     fun getCharacters() = characters
 
-}*/
+}

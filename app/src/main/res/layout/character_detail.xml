@@ -102,6 +102,52 @@
         android:layout_marginEnd="@dimen/marginStartEnd_characterdetail_fragment"
         />
 
+    <TextView
+        android:id="@+id/textOrigin_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textGender_characterDetail_fragment"
+        android:text="@string/textOrigin_characterDetail"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/marginVertical_inDetails_characterDetailFragment"
+        android:layout_marginStart="@dimen/marginStartEnd_characterdetail_fragment"/>
+
+    <TextView
+        android:id="@+id/textOriginData_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMaleFemale_characterDetail_fragment"
+        tools:text="Tierra"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/marginVertical_inDetails_characterDetailFragment"
+        android:layout_marginEnd="@dimen/marginStartEnd_characterdetail_fragment"
+        />
+
+    <TextView
+        android:id="@+id/textEpisode_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textOrigin_characterDetail_fragment"
+        android:text="@string/text_episodeAppearances"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/marginVertical_inDetails_characterDetailFragment"
+        android:layout_marginStart="@dimen/marginStartEnd_characterdetail_fragment"/>
+
+    <TextView
+        android:id="@+id/textEpisodeData_characterDetail_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textOriginData_characterDetail_fragment"
+        tools:text="200"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/marginVertical_inDetails_characterDetailFragment"
+        android:layout_marginEnd="@dimen/marginStartEnd_characterdetail_fragment"
+        />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
