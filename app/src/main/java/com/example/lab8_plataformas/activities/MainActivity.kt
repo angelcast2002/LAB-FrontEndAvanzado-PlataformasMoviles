@@ -10,11 +10,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.lab8_plataformas.R
-import com.example.lab8_plataformas.datasource.api.RetrofitInstance
-import com.example.lab8_plataformas.datasource.model.AllAssetsResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var topAppBar: Toolbar

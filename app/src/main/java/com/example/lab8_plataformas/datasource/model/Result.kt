@@ -1,6 +1,6 @@
 package com.example.lab8_plataformas.datasource.model
 
-data class AllAssetsResponseItem(
+data class Result(
     val created: String,
     val episode: List<String>,
     val gender: String,
@@ -14,5 +14,3 @@ data class AllAssetsResponseItem(
     val type: String,
     val url: String
 )
-
-

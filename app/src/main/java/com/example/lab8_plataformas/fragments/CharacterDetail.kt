@@ -11,7 +11,6 @@ import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
 import com.example.lab8_plataformas.R
 import com.example.lab8_plataformas.datasource.api.RetrofitInstance
-import com.example.lab8_plataformas.datasource.model.AllAssetsResponse
 import com.example.lab8_plataformas.datasource.model.OneCharacter
 import retrofit2.Call
 import retrofit2.Callback
