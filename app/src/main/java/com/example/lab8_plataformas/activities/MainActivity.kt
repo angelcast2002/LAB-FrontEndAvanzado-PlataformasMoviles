@@ -2,10 +2,7 @@ package com.example.lab8_plataformas.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
@@ -31,8 +28,28 @@ class MainActivity : AppCompatActivity() {
 
         setListeners()
         setNavigation()
+        //apiRequest()
 
     }
+
+    /*private fun apiRequest() {
+        RetrofitInstance.api.getCharacter().enqueue(object : Callback<AllAssetsResponse> {
+            override fun onResponse(
+                call: Call<AllAssetsResponse>,
+                response: Response<AllAssetsResponse>
+            ) {
+                if (response.isSuccessful){
+                    println(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<AllAssetsResponse>, t: Throwable) {
+                println("Error")
+            }
+
+        })
+
+    }*/
 
     private fun setNavigation() {
 

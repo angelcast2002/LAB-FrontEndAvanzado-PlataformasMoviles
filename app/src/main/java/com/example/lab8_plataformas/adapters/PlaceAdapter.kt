@@ -5,28 +5,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
 import com.example.lab8_plataformas.R
-import com.example.lab8_plataformas.database.Character
-import com.example.lab8_plataformas.database.RickAndMortyDB
+import com.example.lab8_plataformas.datasource.model.Result
 
 class PlaceAdapter(
-    private val dataSet: MutableList<Character>,
+    private val dataSet: List<Result>,
     private val placeListener: PlaceListener
 ):
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
 
     interface PlaceListener {
-        fun onPlaceClicked(data: Character, position: Int)
+        fun onPlaceClicked(data: Result, position: Int)
     }
 
     class ViewHolder(private val view: View,
@@ -35,9 +29,9 @@ class PlaceAdapter(
         private val textName: TextView = view.findViewById(R.id.textView_recycleViewPlace_name)
         private val textRaceStatus: TextView = view.findViewById(R.id.textView_recycleViewPlace_raceStatus)
         private val layout: ConstraintLayout = view.findViewById(R.id.layout_itemPlace)
-        private lateinit var place: Character
+        private lateinit var place: Result
 
-        fun setData(place: Character) {
+        fun setData(place: Result) {
             this.place = place
             textName.text = place.name
             //textRaceStatus.text = place.race + " - " + place.status

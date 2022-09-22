@@ -9,7 +9,7 @@
     <dimen name="marginVertical_imageView_characterDetail">15dp</dimen>
     <dimen name="marginVertical_nameCharacter_characterDetail">10dp</dimen>
     <dimen name="marginFirstVerticalElement_textCharacterDetail_fragment">30dp</dimen>
-    <dimen name="marginStartEnd_characterdetail_fragment">80dp</dimen>
+    <dimen name="marginStartEnd_characterdetail_fragment">50dp</dimen>
     <dimen name="marginVertical_inDetails_characterDetailFragment">5dp</dimen>
     <dimen name="textSize_large">15sp</dimen>
     <dimen name="textSize_extraLarge">20sp</dimen>

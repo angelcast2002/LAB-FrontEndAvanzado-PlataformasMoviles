@@ -20,7 +20,7 @@
         android:label="@string/text_characterDetail_materialToolbar"
         tools:layout="@layout/character_detail">
         <argument
-            android:name="characterInfo"
-            app:argType="com.example.lab8_plataformas.database.Character" />
+            android:name="characterID"
+            app:argType="string" />
     </fragment>
 </navigation>
