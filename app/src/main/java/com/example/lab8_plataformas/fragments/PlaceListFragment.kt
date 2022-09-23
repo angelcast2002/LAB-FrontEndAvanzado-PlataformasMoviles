@@ -1,11 +1,22 @@
 package com.example.lab8_plataformas.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lab8_plataformas.R
@@ -13,6 +24,11 @@ import com.example.lab8_plataformas.adapters.PlaceAdapter
 import com.example.lab8_plataformas.datasource.api.RetrofitInstance
 import com.example.lab8_plataformas.datasource.model.AllAssetsResponse
 import com.example.lab8_plataformas.datasource.model.Result
+import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +40,8 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
     private lateinit var buttonAZ: Button
     private lateinit var buttonZA: Button
     private lateinit var resultadoLlamadaAPI : MutableList<Result>
+    private lateinit var toolbar: MaterialToolbar
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,27 +49,30 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
 
 
         recyclerView = view.findViewById(R.id.recycler_recyclerActivity)
-        buttonAZ = view.findViewById(R.id.bt_sortAZ)
-        buttonZA = view.findViewById(R.id.bt_sortZA)
+        toolbar = view.findViewById(R.id.toolbar_ToolbarActivity_characterDetail_characterList)
 
         apiRequest()
-
         setListeners()
 
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setListeners() {
-        buttonAZ.setOnClickListener{
-            //placesList = placesList.sortedBy { it.name }
-            placesList.sortBy { place -> place.name }
-            recyclerView.adapter!!.notifyDataSetChanged()
-        }
+        toolbar.setOnMenuItemClickListener { menuItem ->
+            when(menuItem.itemId) {
+                R.id.menu_item_AZ -> {
+                    placesList.sortBy { character -> character.name }
+                    recyclerView.adapter!!.notifyDataSetChanged()
+                    true
+                }
 
-        buttonZA.setOnClickListener{
-            //placesList = placesList.sortedByDescending { it.name }
-            placesList.sortByDescending { place -> place.name }
-            recyclerView.adapter!!.notifyDataSetChanged()
+                R.id.menu_item_ZA -> {
+                    placesList.sortByDescending { character -> character.name }
+                    recyclerView.adapter!!.notifyDataSetChanged()
+                    true
+                }
+                else -> true
+            }
         }
     }
 

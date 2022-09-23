@@ -3,13 +3,22 @@
     <string name="text_species_characterDetail_fragment">Species:</string>
     <string name="text_status_characterDetail_fragment">Status:</string>
     <string name="text_gender_characterDetail_fragment">Gender:</string>
-    <string name="textMenu_ordenar_a_z">Ordenar: A - Z</string>
-    <string name="textMenu_ordenar_z_a">Ordenar: Z - A</string>
+    <string name="textMenu_ordenar_a_z">A -> Z</string>
+    <string name="textMenu_ordenar_z_a">Z -> A</string>
     <string name="text_Characters_materialToolbar">Characters</string>
     <string name="text_characterDetail_materialToolbar">Characters details</string>
     <string name="textMensaje_topAppBar">Funcion no disponible, utilice el otro boton</string>
     <string name="textButton_sortAZ"><![CDATA[A -> Z]]></string>
     <string name="textButton_sortZA"><![CDATA[Z -> A]]></string>
+    <string name="correoAceptado_loginFragment">cas21700@uvg.edu.gt</string>
+    <string name="textContrasenia_loginFragment">Contraseña</string>
+    <string name="textBtn_iniciarSesion_loginFragment">iniciar sesión</string>
+    <string name="textCorreo_inputCorreo_loginFragment">Correo</string>
+    <string name="textToast">Correo o contraseña incorrectas</string>
+    <string name="textCorreo_fragment">cas21700@uvg.edu.gt</string>
+    <string name="textContrasenia_fragment">cas21700@uvg.edu.gt</string>
     <string name="textOrigin_characterDetail">Origin:</string>
-    <string name="text_episodeAppearances">Episode appearances:</string>
+    <string name="text_episodeAppearances">Episode appareances:</string>
+    <string name="textToolbar_characterDetails">Character details</string>
+    <string name="textMenu_cerrarSesion">Cerrar sesión</string>
 </resources>

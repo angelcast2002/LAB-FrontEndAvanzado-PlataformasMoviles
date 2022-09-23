@@ -5,7 +5,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import coil.load
 import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
@@ -13,6 +16,7 @@ import com.example.lab8_plataformas.R
 import com.example.lab8_plataformas.datasource.api.RetrofitInstance
 import com.example.lab8_plataformas.datasource.model.OneCharacter
 import com.example.lab8_plataformas.datasource.model.Result
+import com.google.android.material.appbar.MaterialToolbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +32,7 @@ class CharacterDetail : Fragment(R.layout.character_detail){
     private lateinit var resultadoLlamadaAPI : OneCharacter
     private lateinit var characterOrigin : TextView
     private lateinit var characterEpisodeAppearances: TextView
+    private lateinit var toolbar: MaterialToolbar
 
     private val args: CharacterDetailArgs by navArgs()
 
@@ -41,9 +46,10 @@ class CharacterDetail : Fragment(R.layout.character_detail){
         characterGender = view.findViewById(R.id.textMaleFemale_characterDetail_fragment)
         characterOrigin = view.findViewById(R.id.textOriginData_characterDetail_fragment)
         characterEpisodeAppearances = view.findViewById(R.id.textEpisodeData_characterDetail_fragment)
-
+        toolbar = view.findViewById(R.id.toolbar_ToolbarActivity_characterDetail_characterDetail)
         setID()
         apiRequest()
+        setToolbar()
     }
 
     private fun setID() {
@@ -85,6 +91,12 @@ class CharacterDetail : Fragment(R.layout.character_detail){
             }
 
         })
+    }
 
+    private fun setToolbar() {
+        val navController = findNavController()
+        val appbarConfig = AppBarConfiguration(navController.graph)
+
+        toolbar.setupWithNavController(navController, appbarConfig)
     }
 }

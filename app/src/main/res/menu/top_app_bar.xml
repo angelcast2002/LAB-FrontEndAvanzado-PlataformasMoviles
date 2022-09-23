@@ -12,4 +12,9 @@
         android:title="@string/textMenu_ordenar_z_a"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/menu_item_cerrarSesion"
+        android:title="@string/textMenu_cerrarSesion"
+        app:showAsAction="never" />
+
 </menu>

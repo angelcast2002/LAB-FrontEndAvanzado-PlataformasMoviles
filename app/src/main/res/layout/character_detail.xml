@@ -7,13 +7,26 @@
     android:id="@+id/fragment_characterDetail"
     android:background="@color/white">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_ToolbarActivity_characterDetail_characterDetail"
+        android:layout_width="@dimen/ceroDp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.Toolbar.Surface"
+        android:backgroundTint="@color/color_toolbarActivity"
+        app:title="@string/textToolbar_characterDetails"
+        app:titleTextColor="@color/white"
+        />
+
 
     <ImageView
         android:id="@+id/imageView_characterDetail_fragment"
         android:layout_width="@dimen/size_imageView_characterDetail"
         android:layout_height="@dimen/size_imageView_characterDetail"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_ToolbarActivity_characterDetail_characterDetail"
         app:layout_constraintEnd_toEndOf="parent"
         tools:srcCompat="@tools:sample/avatars"
         android:layout_marginVertical="@dimen/marginVertical_imageView_characterDetail"

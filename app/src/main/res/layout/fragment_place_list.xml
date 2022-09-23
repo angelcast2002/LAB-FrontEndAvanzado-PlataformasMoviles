@@ -8,41 +8,29 @@
     android:background="@color/white"
     >
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_ToolbarActivity_characterDetail_characterList"
+        android:layout_width="@dimen/ceroDp"
+        android:layout_height="wrap_content"
+        app:menu="@menu/top_app_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.Toolbar.Surface"
+        android:backgroundTint="@color/color_toolbarActivity"
+        app:title="@string/text_Characters_materialToolbar"
+        app:titleTextColor="@color/white"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_recyclerActivity"
         android:layout_width="@dimen/ceroDp"
         android:layout_height="@dimen/ceroDp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_ToolbarActivity_characterDetail_characterList"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_recycler_object"
-        />
-
-    <Button
-        android:id="@+id/bt_sortAZ"
-        android:text="@string/textButton_sortAZ"
-        android:layout_margin="@dimen/margin_small"
-        android:layout_width="@dimen/ceroDp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bt_sortZA"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/color_toolbarActivity"
-        />
-
-    <Button
-        android:id="@+id/bt_sortZA"
-        android:text="@string/textButton_sortZA"
-        android:layout_margin="@dimen/margin_small"
-        android:layout_width="@dimen/ceroDp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bt_sortAZ"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/color_toolbarActivity"
         />
 
 

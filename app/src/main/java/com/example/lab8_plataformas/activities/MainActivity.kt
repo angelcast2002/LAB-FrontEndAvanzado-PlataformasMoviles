@@ -1,92 +1,61 @@
 package com.example.lab8_plataformas.activities
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.lab8_plataformas.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var topAppBar: Toolbar
-    private lateinit var navController: NavController
+
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_view) as NavHostFragment
-        navController = navHostFragment.navController
-
-        val appbarConfig = AppBarConfiguration(navController.graph)
-        topAppBar = findViewById(R.id.toolbar_ToolbarActivity)
-        topAppBar.setupWithNavController(navController, appbarConfig)
-
-        setListeners()
-        setNavigation()
-        //apiRequest()
-
     }
 
-    /*private fun apiRequest() {
-        RetrofitInstance.api.getCharacter().enqueue(object : Callback<AllAssetsResponse> {
-            override fun onResponse(
-                call: Call<AllAssetsResponse>,
-                response: Response<AllAssetsResponse>
-            ) {
-                if (response.isSuccessful){
-                    println(response.body())
-                }
-            }
-
-            override fun onFailure(call: Call<AllAssetsResponse>, t: Throwable) {
-                println("Error")
-            }
-
-        })
-
-    }*/
-
-    private fun setNavigation() {
-
-        navController.addOnDestinationChangedListener{_, destinacion,_ ->
-            when(destinacion.id){
-                R.id.placeListFragment -> {
-                    topAppBar.visibility = View.VISIBLE
-                    topAppBar.menu.findItem(R.id.menu_item_AZ).isVisible = true
-                    topAppBar.menu.findItem(R.id.menu_item_ZA).isVisible = true
-                }
-
-                R.id.placeDetailsFragment -> {
-                    topAppBar.menu.findItem(R.id.menu_item_AZ).isVisible = false
-                    topAppBar.menu.findItem(R.id.menu_item_ZA).isVisible = false
-                }
-            }
+    private fun save() {
+        CoroutineScope(Dispatchers.IO).launch {
+            saveKeyValue(
+                key = "1",
+                value = "true"
+            )
         }
-
+    }
+    private fun getValueDataStore(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val value = getValueFromKey(
+                key = "1",
+            )
+        }
     }
 
-    private fun setListeners() {
-        topAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.menu_item_AZ -> {
-                    Toast.makeText(this,getString(R.string.textMensaje_topAppBar), Toast.LENGTH_LONG).show()
-                    //placesList = placesList.sortedBy { it.name } as MutableList<Character>
-                    true
-                }
-
-                R.id.menu_item_ZA -> {
-                    Toast.makeText(this,getString(R.string.textMensaje_topAppBar), Toast.LENGTH_LONG).show()
-                    true
-                }
-
-
-                else -> false
-            }
+    private suspend fun saveKeyValue(key: String, value: String) {
+        val dataStoreKey = stringPreferencesKey(key)
+        dataStore.edit { settings ->
+            settings[dataStoreKey] = value
         }
+    }
+
+    private suspend fun getValueFromKey(key: String) : String? {
+        val dataStoreKey = stringPreferencesKey(key)
+        val preferences = dataStore.data.first()
+        return preferences[dataStoreKey]
     }
 }
