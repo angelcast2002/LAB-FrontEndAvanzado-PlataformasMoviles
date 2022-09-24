@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lab8_plataformas.R
 import com.example.lab8_plataformas.adapters.PlaceAdapter
+import com.example.lab8_plataformas.dataStore.DataStore.dataStore
 import com.example.lab8_plataformas.datasource.api.RetrofitInstance
 import com.example.lab8_plataformas.datasource.model.AllAssetsResponse
 import com.example.lab8_plataformas.datasource.model.Result
@@ -37,8 +38,6 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var placesList: MutableList<Result>
-    private lateinit var buttonAZ: Button
-    private lateinit var buttonZA: Button
     private lateinit var resultadoLlamadaAPI : MutableList<Result>
     private lateinit var toolbar: MaterialToolbar
 
@@ -69,6 +68,10 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
                 R.id.menu_item_ZA -> {
                     placesList.sortByDescending { character -> character.name }
                     recyclerView.adapter!!.notifyDataSetChanged()
+                    true
+                }
+                R.id.menu_item_cerrarSesion -> {
+                    delete()
                     true
                 }
                 else -> true
@@ -109,6 +112,25 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
 
         })
 
+    }
+
+    private fun delete() {
+        CoroutineScope(Dispatchers.IO).launch {
+            saveKeyValue(
+                key = getString(R.string.keyInicioSesion)
+            )
+        }
+
+        requireView().findNavController().navigate(
+            PlaceListFragmentDirections.actionPlaceListFragmentToLoginFragment()
+        )
+    }
+
+    private suspend fun saveKeyValue(key: String) {
+        val dataStoreKey = stringPreferencesKey(key)
+        context?.dataStore?.edit { settings ->
+            settings.remove(dataStoreKey)
+        }
     }
 
 }

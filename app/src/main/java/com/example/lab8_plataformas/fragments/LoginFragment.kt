@@ -8,15 +8,20 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.datastore.core.DataStore
+import androidx.datastore.dataStoreFile
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.lab8_plataformas.R
+import com.example.lab8_plataformas.activities.MainActivity
+import com.example.lab8_plataformas.dataStore.DataStore.dataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment(R.layout.login_fragment){
@@ -26,7 +31,7 @@ class LoginFragment : Fragment(R.layout.login_fragment){
     private lateinit var correo: String
     private lateinit var textContrasenia: EditText
     private lateinit var contrasenia: String
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+    private lateinit var sesionIniciada : String
 
 
 
@@ -38,7 +43,7 @@ class LoginFragment : Fragment(R.layout.login_fragment){
         textCorreo = view.findViewById(R.id.textInput_correoText_loginFragment_editText)
         textContrasenia = view.findViewById(R.id.textInput_contrasenaText_loginFragment_editText)
 
-        setListeners()
+        getValueDataStore()
 
     }
 
@@ -49,13 +54,60 @@ class LoginFragment : Fragment(R.layout.login_fragment){
             contrasenia = textContrasenia.getText().toString()
 
             if (correo == getString(R.string.textCorreo_fragment) && contrasenia == getString(R.string.textContrasenia_fragment)) {
-                requireView().findNavController().navigate(
-                    LoginFragmentDirections.actionLoginFragmentToPlaceListFragment()
-                )
+                save()
             } else {
                 Toast.makeText(getActivity(), getString(R.string.textToast), Toast.LENGTH_LONG)
                     .show()
             }
+        }
+    }
+
+    private fun getValueDataStore(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val value = getValueFromKey(
+                key = getString(R.string.keyInicioSesion),
+            )
+            CoroutineScope(Dispatchers.Main).launch {
+                sesionIniciada = value.toString()
+                cargarVista()
+            }
+        }
+    }
+
+    private fun cargarVista() {
+        if (sesionIniciada == getString(R.string.constant_iniciarSesion)){
+            requireView().findNavController().navigate(
+                LoginFragmentDirections.actionLoginFragmentToPlaceListFragment()
+            )
+        }
+        else(
+                setListeners()
+        )
+    }
+
+    private suspend fun getValueFromKey(key: String) : String? {
+        val dataStoreKey = stringPreferencesKey(key)
+        val preferences = context?.dataStore?.data?.first()
+        return preferences?.get(dataStoreKey)
+    }
+
+    private fun save() {
+        CoroutineScope(Dispatchers.IO).launch {
+            saveKeyValue(
+                key = getString(R.string.keyInicioSesion),
+                value = getString(R.string.constant_iniciarSesion),
+            )
+        }
+
+        requireView().findNavController().navigate(
+            LoginFragmentDirections.actionLoginFragmentToPlaceListFragment()
+        )
+    }
+
+    private suspend fun saveKeyValue(key: String, value: String) {
+        val dataStoreKey = stringPreferencesKey(key)
+        context?.dataStore?.edit { settings ->
+            settings[dataStoreKey] = value
         }
     }
 }

@@ -21,4 +21,7 @@
     <string name="text_episodeAppearances">Episode appareances:</string>
     <string name="textToolbar_characterDetails">Character details</string>
     <string name="textMenu_cerrarSesion">Cerrar sesión</string>
+    <string name="keyInicioSesion">email</string>
+    <string name="constant_iniciarSesion">cas21700@uvg.edu.gt</string>
+    <string name="constant_noIniciarSesion">false</string>
 </resources>
