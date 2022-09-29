@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.LoginFragment"
-    android:background="@color/white">
-
+    android:background="@color/white"
+    tools:visibility="visible">
 
     <ImageView
         android:id="@+id/img_login_fragment"
