@@ -17,4 +17,10 @@
         android:title="@string/textMenu_cerrarSesion"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/menu_item_sync"
+        android:icon="@drawable/ic_sync"
+        app:showAsAction="ifRoom"
+        android:title="@string/text_menu_sincronizar" />
+
 </menu>

@@ -24,4 +24,9 @@
     <string name="keyInicioSesion">email</string>
     <string name="constant_iniciarSesion">cas21700@uvg.edu.gt</string>
     <string name="constant_noIniciarSesion">false</string>
+    <string name="text_menu_sincronizar">Sincronizar</string>
+    <string name="text_Advertencia">Advertencia</string>
+    <string name="text_Cancelar">Cancelar</string>
+    <string name="text_Eliminar">Eliminar</string>
+    <string name="text_mensaje_cerrarSesion">¿Está seguro que desea salir? Se perderán todos los datos.</string>
 </resources>

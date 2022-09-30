@@ -3,7 +3,9 @@ package com.example.lab8_plataformas.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
@@ -33,6 +35,7 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
     private  var data : MutableList<dataCharacters> = mutableListOf()
     private lateinit var toolbar: MaterialToolbar
     private lateinit var database: Database
+    private lateinit var progressBar: ProgressBar
 
 
 
@@ -42,6 +45,8 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
 
         recyclerView = view.findViewById(R.id.recycler_recyclerActivity)
         toolbar = view.findViewById(R.id.toolbar_ToolbarActivity_characterDetail_characterList)
+        progressBar = view.findViewById(R.id.progress_users)
+        data = mutableListOf()
 
         database = Room.databaseBuilder(
             requireContext(),
@@ -55,12 +60,18 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
     }
 
     private fun setDataFromRoom() {
-        data.clear()
+        progressBar.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
+
+        //data.clear()
         CoroutineScope(Dispatchers.IO).launch {
             val users = database.dataCharacterDao().getUsers()
             data.addAll(users)
+            CoroutineScope(Dispatchers.Main).launch {
+                checkData()
+            }
         }
-        checkData()
+
 
     }
 
@@ -91,7 +102,23 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
                     true
                 }
                 R.id.menu_item_cerrarSesion -> {
-                    delete()
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.apply {
+                        setTitle(getString(R.string.text_Advertencia))
+                        setMessage(getString(R.string.text_mensaje_cerrarSesion))
+                        setPositiveButton(getString(R.string.text_Eliminar)
+                        ) { _, _ ->
+                            delete()
+                        }
+                        setNegativeButton(getString(R.string.text_Cancelar)) { _, _ -> }
+                        show()
+                    }
+
+                    true
+                }
+                R.id.menu_item_sync -> {
+                    data.clear()
+                    apiRequest()
                     true
                 }
                 else -> true
@@ -100,10 +127,12 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
     }
 
     private fun setupRecycler() {
+        progressBar.visibility = View.GONE
         placesList = data
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = PlaceAdapter(placesList, this)
+        recyclerView.visibility = View.VISIBLE
     }
 
     override fun onPlaceClicked(data: dataCharacters, position: Int) {
@@ -135,9 +164,11 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
                         CoroutineScope(Dispatchers.IO).launch {
                             database.dataCharacterDao().insert(character)
                         }
+                        data.add(character)
                     }
-
-                    setDataFromRoom()
+                    CoroutineScope(Dispatchers.Main).launch {
+                        setupRecycler()
+                    }
 
                 }
             }
@@ -155,6 +186,8 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
             saveKeyValue(
                 key = getString(R.string.keyInicioSesion)
             )
+            database.dataCharacterDao().deleteAll()
+
         }
 
         requireView().findNavController().navigate(
