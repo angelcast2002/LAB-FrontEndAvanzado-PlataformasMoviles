@@ -56,6 +56,7 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
 
         setListeners()
         setDataFromRoom()
+        setupRecycler()
 
     }
 
@@ -68,6 +69,7 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
             val users = database.dataCharacterDao().getUsers()
             data.addAll(users)
             CoroutineScope(Dispatchers.Main).launch {
+                placesList = data
                 checkData()
             }
         }
@@ -78,7 +80,7 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
     private fun checkData() {
 
         if (data.size != 0){
-            setupRecycler()
+            recyclerView.adapter!!.notifyDataSetChanged()
         }
 
         else{
@@ -167,7 +169,8 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
                         data.add(character)
                     }
                     CoroutineScope(Dispatchers.Main).launch {
-                        setupRecycler()
+                        placesList = data
+                        recyclerView.adapter!!.notifyDataSetChanged()
                     }
 
                 }
