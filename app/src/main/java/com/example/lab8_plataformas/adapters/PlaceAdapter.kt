@@ -11,27 +11,28 @@ import coil.load
 import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
 import com.example.lab8_plataformas.R
-import com.example.lab8_plataformas.datasource.model.Result
+import com.example.lab8_plataformas.datasource.model.dataCharacters
 
 class PlaceAdapter(
-    private val dataSet: List<Result>,
+    private val dataSet: List<dataCharacters>,
     private val placeListener: PlaceListener
 ):
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
 
     interface PlaceListener {
-        fun onPlaceClicked(data: Result, position: Int)
+        fun onPlaceClicked(data: dataCharacters, position: Int)
     }
 
     class ViewHolder(private val view: View,
-                     private val listener: PlaceListener) : RecyclerView.ViewHolder(view) {
+                     private val listener: PlaceListener
+    ) : RecyclerView.ViewHolder(view) {
         private val imageType: ImageView = view.findViewById(R.id.imageView_recycleViewPlace)
         private val textName: TextView = view.findViewById(R.id.textView_recycleViewPlace_name)
         private val textRaceStatus: TextView = view.findViewById(R.id.textView_recycleViewPlace_raceStatus)
         private val layout: ConstraintLayout = view.findViewById(R.id.layout_itemPlace)
-        private lateinit var place: Result
+        private lateinit var place: dataCharacters
 
-        fun setData(place: Result) {
+        fun setData(place: dataCharacters) {
             this.place = place
             textName.text = place.name
             //textRaceStatus.text = place.race + " - " + place.status
@@ -54,6 +55,7 @@ class PlaceAdapter(
         }
 
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

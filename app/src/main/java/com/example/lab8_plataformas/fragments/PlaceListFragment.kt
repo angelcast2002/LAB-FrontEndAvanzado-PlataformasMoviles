@@ -1,34 +1,26 @@
 package com.example.lab8_plataformas.fragments
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.lab8_plataformas.R
 import com.example.lab8_plataformas.adapters.PlaceAdapter
 import com.example.lab8_plataformas.dataStore.DataStore.dataStore
 import com.example.lab8_plataformas.datasource.api.RetrofitInstance
+import com.example.lab8_plataformas.datasource.local.Database
 import com.example.lab8_plataformas.datasource.model.AllAssetsResponse
-import com.example.lab8_plataformas.datasource.model.Result
+import com.example.lab8_plataformas.datasource.model.dataCharacters
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,9 +29,10 @@ import retrofit2.Response
 class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.PlaceListener {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var placesList: MutableList<Result>
-    private lateinit var resultadoLlamadaAPI : MutableList<Result>
+    private lateinit var placesList: MutableList<dataCharacters>
+    private  var data : MutableList<dataCharacters> = mutableListOf()
     private lateinit var toolbar: MaterialToolbar
+    private lateinit var database: Database
 
 
 
@@ -50,9 +43,36 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
         recyclerView = view.findViewById(R.id.recycler_recyclerActivity)
         toolbar = view.findViewById(R.id.toolbar_ToolbarActivity_characterDetail_characterList)
 
-        apiRequest()
-        setListeners()
+        database = Room.databaseBuilder(
+            requireContext(),
+            Database::class.java,
+            "dataBaseCharacters"
+        ).build()
 
+        setListeners()
+        setDataFromRoom()
+
+    }
+
+    private fun setDataFromRoom() {
+        data.clear()
+        CoroutineScope(Dispatchers.IO).launch {
+            val users = database.dataCharacterDao().getUsers()
+            data.addAll(users)
+        }
+        checkData()
+
+    }
+
+    private fun checkData() {
+
+        if (data.size != 0){
+            setupRecycler()
+        }
+
+        else{
+            apiRequest()
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -80,13 +100,13 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
     }
 
     private fun setupRecycler() {
-        placesList = resultadoLlamadaAPI
+        placesList = data
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = PlaceAdapter(placesList, this)
     }
 
-    override fun onPlaceClicked(data: Result, position: Int) {
+    override fun onPlaceClicked(data: dataCharacters, position: Int) {
         requireView().findNavController().navigate(
             PlaceListFragmentDirections.actionPlaceListFragmentToPlaceDetailsFragment(
                 characterID = data.id.toString()
@@ -101,8 +121,24 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
                 response: Response<AllAssetsResponse>
             ) {
                 if (response.isSuccessful && response.body() != null){
-                    resultadoLlamadaAPI = response.body()!!.results
-                    setupRecycler()
+                    for (user in response.body()!!.results){
+                        val character = dataCharacters(
+                            name = user.name,
+                            species = user.species,
+                            id = user.id,
+                            status = user.status,
+                            gender = user.gender,
+                            origin = user.origin.name,
+                            episode = user.episode.size,
+                            image = user.image
+                        )
+                        CoroutineScope(Dispatchers.IO).launch {
+                            database.dataCharacterDao().insert(character)
+                        }
+                    }
+
+                    setDataFromRoom()
+
                 }
             }
 
