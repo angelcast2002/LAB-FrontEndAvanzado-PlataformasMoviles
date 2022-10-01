@@ -6,11 +6,11 @@ import androidx.room.PrimaryKey
 @Entity
 data class dataCharacters(
     @PrimaryKey(autoGenerate = false) val id: Int,
-    val episode: Int?,
-    val gender: String?,
+    var episode: Int?,
+    var gender: String?,
     val image: String?,
-    val name: String?,
-    val origin: String?,
-    val species: String?,
-    val status: String?
+    var name: String?,
+    var origin: String?,
+    var species: String?,
+    var status: String?
 )

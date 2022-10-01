@@ -183,7 +183,7 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
             }
 
             override fun onFailure(call: Call<AllAssetsResponse>, t: Throwable) {
-                println("Error")
+                Toast.makeText(requireContext(), getString(R.string.text_mensaje_noInternet), Toast.LENGTH_SHORT).show()
             }
 
         })

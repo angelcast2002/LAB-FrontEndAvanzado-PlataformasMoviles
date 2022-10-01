@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_item_sync"
+        android:id="@+id/menu_item_sync_characterDetail"
         android:icon="@drawable/ic_sync"
         app:showAsAction="ifRoom"
         android:title="@string/text_menu_sincronizar" />

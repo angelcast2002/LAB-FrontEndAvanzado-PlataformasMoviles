@@ -31,4 +31,8 @@
     <string name="text_mensaje_cerrarSesion">¿Está seguro que desea salir? Se perderán todos los datos.</string>
     <string name="text_name_characterDetail">Name</string>
     <string name="text_bt_guardar_characterDetail">Guardar</string>
+    <string name="text_mensaje_deleteCharacter">¿Está seguro que desea eliminarlo? Se perderán todos los datos.</string>
+    <string name="text_mensaje_syncCharacter">¿Está seguro que desea actualizar? Se perderán todos los datos.</string>
+    <string name="text_mensaje_saveNewData">Guardado con éxito.</string>
+    <string name="text_mensaje_noInternet">¡Sin internet!</string>
 </resources>
