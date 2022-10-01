@@ -80,12 +80,19 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
     private fun checkData() {
 
         if (data.size != 0){
-            recyclerView.adapter!!.notifyDataSetChanged()
+            notifyDataChange()
+
         }
 
         else{
             apiRequest()
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun notifyDataChange() {
+        recyclerView.adapter!!.notifyDataSetChanged()
+        progressBar.visibility = View.GONE
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -129,7 +136,6 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
     }
 
     private fun setupRecycler() {
-        progressBar.visibility = View.GONE
         placesList = data
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
@@ -140,7 +146,7 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
     override fun onPlaceClicked(data: dataCharacters, position: Int) {
         requireView().findNavController().navigate(
             PlaceListFragmentDirections.actionPlaceListFragmentToPlaceDetailsFragment(
-                characterID = data.id.toString()
+                characterID = data.id
             )
         )
     }
@@ -170,7 +176,7 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
                     }
                     CoroutineScope(Dispatchers.Main).launch {
                         placesList = data
-                        recyclerView.adapter!!.notifyDataSetChanged()
+                        notifyDataChange()
                     }
 
                 }

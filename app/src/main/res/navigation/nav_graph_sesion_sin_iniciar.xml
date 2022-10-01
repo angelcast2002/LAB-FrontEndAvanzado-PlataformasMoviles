@@ -26,7 +26,7 @@
         tools:layout="@layout/character_detail">
         <argument
             android:name="characterID"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

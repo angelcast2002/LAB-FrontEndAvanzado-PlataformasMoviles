@@ -5,7 +5,7 @@
     <dimen name="size_imageView_recycleView">40dp</dimen>
     <dimen name="height_recyclerView_container">72dp</dimen>
     <dimen name="ceroDp">0dp</dimen>
-    <dimen name="size_imageView_characterDetail">150dp</dimen>
+    <dimen name="size_imageView_characterDetail">100dp</dimen>
     <dimen name="marginVertical_imageView_characterDetail">15dp</dimen>
     <dimen name="marginVertical_nameCharacter_characterDetail">10dp</dimen>
     <dimen name="marginFirstVerticalElement_textCharacterDetail_fragment">30dp</dimen>

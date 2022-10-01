@@ -18,7 +18,7 @@
     <string name="textCorreo_fragment">cas21700@uvg.edu.gt</string>
     <string name="textContrasenia_fragment">cas21700@uvg.edu.gt</string>
     <string name="textOrigin_characterDetail">Origin:</string>
-    <string name="text_episodeAppearances">Episode appareances:</string>
+    <string name="text_episodeAppearances">Episodes:</string>
     <string name="textToolbar_characterDetails">Character details</string>
     <string name="textMenu_cerrarSesion">Cerrar sesión</string>
     <string name="keyInicioSesion">email</string>
@@ -29,4 +29,6 @@
     <string name="text_Cancelar">Cancelar</string>
     <string name="text_Eliminar">Eliminar</string>
     <string name="text_mensaje_cerrarSesion">¿Está seguro que desea salir? Se perderán todos los datos.</string>
+    <string name="text_name_characterDetail">Name</string>
+    <string name="text_bt_guardar_characterDetail">Guardar</string>
 </resources>
