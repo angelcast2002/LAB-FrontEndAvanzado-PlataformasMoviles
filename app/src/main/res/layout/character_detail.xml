@@ -30,6 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_ToolbarActivity_characterDetail_characterDetail"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/nameCharacter_characterDetail_fragment"
         tools:srcCompat="@tools:sample/avatars"
         android:layout_marginVertical="@dimen/marginVertical_imageView_characterDetail"
         />
