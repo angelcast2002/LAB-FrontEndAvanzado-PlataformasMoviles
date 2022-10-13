@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/placeListFragment"
-        android:name="com.example.lab8_plataformas.fragments.PlaceListFragment"
+        android:name="com.example.lab8_plataformas.Ui.fragments.character_list.PlaceListFragment"
         android:label="@string/text_Characters_materialToolbar"
         tools:layout="@layout/fragment_place_list">
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/placeDetailsFragment"
-        android:name="com.example.lab8_plataformas.fragments.CharacterDetail"
+        android:name="com.example.lab8_plataformas.Ui.fragments.character_detail.CharacterDetail"
         android:label="@string/text_characterDetail_materialToolbar"
         tools:layout="@layout/character_detail">
         <argument
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.lab8_plataformas.fragments.LoginFragment"
+        android:name="com.example.lab8_plataformas.Ui.fragments.Login.LoginFragment"
         android:label="login_fragment"
         tools:layout="@layout/login_fragment" >
         <action
