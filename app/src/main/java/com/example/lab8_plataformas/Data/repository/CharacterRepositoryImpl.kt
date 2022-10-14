@@ -14,6 +14,7 @@ class CharacterRepositoryImpl(
     private val api: RickMortyAPI
 ): CharacterRepository {
     override fun getAllCharacter(): Flow<DataState<List<dataCharacters>>> = flow {
+
         emit(DataState.Loading)
         val localCharacter = characterDao.getUsers()
         if (localCharacter.isEmpty()){
@@ -24,7 +25,7 @@ class CharacterRepositoryImpl(
                 emit(DataState.Success(charactersToStore))
             }
             catch (e: Exception){
-                emit(DataState.Success(localCharacter))
+                emit(DataState.Error(e))
             }
         }
         else{
@@ -32,19 +33,49 @@ class CharacterRepositoryImpl(
         }
     }
 
-    override fun deleteAllCharacter(): Flow<DataState<Int>> {
-        TODO("Not yet implemented")
+    override fun deleteAllCharacter(): Flow<DataState<Int>> = flow{
+
+        emit(DataState.Loading)
+        try {
+            val numberOfCharacterDeleted = characterDao.deleteAll()
+            emit(DataState.Success(numberOfCharacterDeleted))
+        }catch (e: Exception){
+            emit(DataState.Error(e))
+        }
+
     }
 
-    override fun getCharacter(id: String): Flow<DataState<dataCharacters?>> {
-        TODO("Not yet implemented")
+    override fun getCharacter(id: String): Flow<DataState<dataCharacters?>> = flow{
+
+        emit(DataState.Loading)
+        try {
+            val localCharacter = characterDao.getUserById(id.toInt())
+            emit(DataState.Success(localCharacter))
+        }
+        catch (e: Exception){
+            emit(DataState.Error(e))
+        }
     }
 
-    override fun updateCharacter(character: dataCharacters): Flow<DataState<Int>> {
-        TODO("Not yet implemented")
+    override fun updateCharacter(character: dataCharacters): Flow<DataState<Int>> = flow {
+
+        emit(DataState.Loading)
+        try {
+            characterDao.update(character)
+            emit(DataState.Success(character.id))
+        }catch (e: Exception){
+            emit(DataState.Error(e))
+        }
     }
 
-    override fun deleteCharacter(id: String): Flow<DataState<Int>> {
-        TODO("Not yet implemented")
+    override fun deleteCharacter(id: String): Flow<DataState<Int>> = flow{
+
+        emit(DataState.Loading)
+        try {
+            characterDao.delete(characterDao.getUserById(id.toInt()))
+            emit(DataState.Success(id.toInt()))
+        }catch (e: Exception){
+            emit(DataState.Error(e))
+        }
     }
 }
