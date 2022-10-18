@@ -9,6 +9,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,13 +23,16 @@ import com.example.lab8_plataformas.Data.datasource.local.Database
 import com.example.lab8_plataformas.Data.datasource.model.AllAssetsResponse
 import com.example.lab8_plataformas.Data.datasource.model.dataCharacters
 import com.google.android.material.appbar.MaterialToolbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@AndroidEntryPoint
 class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.PlaceListener {
 
     private lateinit var recyclerView: RecyclerView
@@ -35,6 +41,9 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
     private lateinit var toolbar: MaterialToolbar
     private lateinit var database: Database
     private lateinit var progressBar: ProgressBar
+
+    private val viewModel: CharacterListViewModel by viewModels()
+
 
 
 
@@ -56,7 +65,34 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
         setListeners()
         setDataFromRoom()
         setupRecycler()
+        setObservables()
 
+    }
+
+    private fun setObservables() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.screenState.collectLatest { state ->
+                handleState(state)
+            }
+        }
+    }
+
+    private fun handleState(state: CharacterListViewModel.ListUiState){
+        when(state){
+            CharacterListViewModel.ListUiState.Empty -> {
+                
+
+            }
+            is CharacterListViewModel.ListUiState.Error -> {
+
+            }
+            CharacterListViewModel.ListUiState.Loading -> {
+
+            }
+            is CharacterListViewModel.ListUiState.Success -> {
+                showCharacters(state.data, flase)
+            }
+        }
     }
 
     private fun setDataFromRoom() {
@@ -84,7 +120,7 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
         }
 
         else{
-            apiRequest()
+            getCharacters()
         }
     }
 
@@ -126,7 +162,7 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
                 }
                 R.id.menu_item_sync -> {
                     data.clear()
-                    apiRequest()
+                    getCharacters()
                     true
                 }
                 else -> true
@@ -150,43 +186,8 @@ class PlaceListFragment : Fragment(R.layout.fragment_place_list), PlaceAdapter.P
         )
     }
 
-    private fun apiRequest(){
-        RetrofitInstance.api.getCharacter().enqueue(object : Callback<AllAssetsResponse> {
-            override fun onResponse(
-                call: Call<AllAssetsResponse>,
-                response: Response<AllAssetsResponse>
-            ) {
-                if (response.isSuccessful && response.body() != null){
-                    for (user in response.body()!!.results){
-                        val character = dataCharacters(
-                            name = user.name,
-                            species = user.species,
-                            id = user.id,
-                            status = user.status,
-                            gender = user.gender,
-                            origin = user.origin.name,
-                            episode = user.episode.size,
-                            image = user.image
-                        )
-                        CoroutineScope(Dispatchers.IO).launch {
-                            database.dataCharacterDao().insert(character)
-                        }
-                        data.add(character)
-                    }
-                    CoroutineScope(Dispatchers.Main).launch {
-                        placesList = data
-                        notifyDataChange()
-                    }
-
-                }
-            }
-
-            override fun onFailure(call: Call<AllAssetsResponse>, t: Throwable) {
-                Toast.makeText(requireContext(), getString(R.string.text_mensaje_noInternet), Toast.LENGTH_SHORT).show()
-            }
-
-        })
-
+    private fun getCharacters(){
+        viewModel.getCharacterList()
     }
 
     private fun delete() {

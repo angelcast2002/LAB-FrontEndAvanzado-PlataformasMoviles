@@ -5,6 +5,7 @@ import com.example.lab8_plataformas.Data.datasource.local.ResultDao
 import com.example.lab8_plataformas.Data.datasource.model.dataCharacters
 import com.example.lab8_plataformas.Data.datasource.model.mapToModel
 import com.example.lab8_plataformas.Data.datasource.util.DataState
+import com.example.lab8_plataformas.Data.datasource.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -13,38 +14,36 @@ class CharacterRepositoryImpl(
     private val characterDao: ResultDao,
     private val api: RickMortyAPI
 ): CharacterRepository {
-    override fun getAllCharacter(): Flow<DataState<List<dataCharacters>>> = flow {
-        emit(DataState.Loading)
+    override suspend fun getAllCharacters(): Resource<List<dataCharacters>> {
         val localCharacter = characterDao.getUsers()
-        if (localCharacter.isEmpty()){
+        return if (localCharacter.isEmpty()){
             try {
-                val remoteCharacter = api.getCharacter().results
-                val charactersToStore = remoteCharacter.map{dto -> dto.mapToModel()}
+                val remoteCharacters = api.getCharacter().results
+                val charactersToStore = remoteCharacters.map { dto -> dto.mapToModel() }
                 characterDao.insertAll(charactersToStore)
-                emit(DataState.Success(charactersToStore))
+                Resource.Success(charactersToStore)
+            } catch (e: Exception){
+                Resource.Error(e.message ?: "")
             }
-            catch (e: Exception){
-                emit(DataState.Success(localCharacter))
-            }
-        }
-        else{
-            emit(DataState.Success(localCharacter))
+        } else {
+            Resource.Success(localCharacter)
         }
     }
 
-    override fun deleteAllCharacter(): Flow<DataState<Int>> {
+    override suspend fun deleteAllCharacters(): Resource<Unit> {
         TODO("Not yet implemented")
     }
 
-    override fun getCharacter(id: String): Flow<DataState<dataCharacters?>> {
+    override suspend fun getCharacter(id: Int): Resource<dataCharacters?> {
         TODO("Not yet implemented")
     }
 
-    override fun updateCharacter(character: dataCharacters): Flow<DataState<Int>> {
+    override suspend fun updateCharacter(character: dataCharacters): Resource<Unit> {
         TODO("Not yet implemented")
     }
 
-    override fun deleteCharacter(id: String): Flow<DataState<Int>> {
+    override suspend fun deleteCharacter(id: Int): Resource<Unit> {
         TODO("Not yet implemented")
     }
+
 }

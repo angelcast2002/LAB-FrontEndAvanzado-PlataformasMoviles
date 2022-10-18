@@ -6,9 +6,12 @@ import com.example.lab8_plataformas.Data.datasource.api.RickMortyAPI
 import com.example.lab8_plataformas.Data.datasource.local.Database
 import com.example.lab8_plataformas.Data.datasource.local.ResultDao
 import com.example.lab8_plataformas.Data.datasource.util.Constants.Companion.RICKMORT_BASE_URL
+import com.example.lab8_plataformas.Data.repository.CharacterRepository
+import com.example.lab8_plataformas.Data.repository.CharacterRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,6 +22,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(Singleton::class)
 object AppModule {
+
     @Provides
     @Singleton
     fun provideLogginInterceptor():HttpLoggingInterceptor{
@@ -47,7 +51,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(context: Context):Database{
+    fun provideDatabase(
+        @ApplicationContext context: Context):Database{
         return Room.databaseBuilder(
             context,
             Database::class.java,
@@ -59,5 +64,14 @@ object AppModule {
     @Singleton
     fun provideCharacterDao(database: Database): ResultDao{
         return database.dataCharacterDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCharacterRepository(api: RickMortyAPI, dao: ResultDao): CharacterRepository{
+        return CharacterRepositoryImpl(
+            api = api,
+            characterDao = dao
+        )
     }
 }
